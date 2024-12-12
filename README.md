@@ -33,13 +33,13 @@ cd your-repo
 #### 2. Configure Environment Variables  
 Create a `.env` file in the root directory and add the following attributes:
 ```plaintext
-NODE_ENV = development
-HOST = 127.0.0.1
-PORT = 5000
-DATABASE = mongodb://localhost:27017
-JWT_SECRET = my-fastest-powerful-matrix-and-fear-secret-for-my-horriple-back-FAROUK-ahmed-test-mokla-jkdsf/@dfsfsg
-JWT_EXPIRES_IN = 7d
-JWT_COOKIE_EXPIRES_IN = 7
+NODE_ENV 
+HOST 
+PORT 
+DATABASE
+JWT_SECRET 
+JWT_EXPIRES_IN 
+JWT_COOKIE_EXPIRES_IN 
 ```
 
 #### 3. Install Dependencies  
