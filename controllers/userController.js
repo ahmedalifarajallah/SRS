@@ -17,6 +17,7 @@ exports.getUsers=catchAsync(async(req,res,next)=>{
     if(!data) return new AppError(`Not Found`,404);
     res.status(200).json({
         status:true,
+        length:data.length,
         data
     })
 })
