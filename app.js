@@ -8,7 +8,8 @@ const mongoSanitize = require('express-mongo-sanitize'); // security
 const xss = require('xss-clean'); // security
 const cors = require('cors')
 const AppError = require(`./utils/appError`);
-
+const authRouter= require('./routes/authRouter')
+const userRouter=require('./routes/userRouter')
 const globalErrorHandler = require(`./controllers/errorController`);
 const app = express();
 
@@ -63,8 +64,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
+app.use('/api/auth',authRouter);
+app.use('/api/users',userRouter);
 
 
 

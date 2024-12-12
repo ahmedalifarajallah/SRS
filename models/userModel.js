@@ -4,11 +4,17 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const otpGenerator = require('otp-generator');
 const userSchema = new mongoose.Schema({
-  name: {
+  fName: {
     type: String,
-    required: [true, 'Please Enter your User Name'],
+    required: [true, 'Please Enter your First Name'],
    // unique: [true, "there's a user with that name "],
-    //trim:true
+    trim:true
+  },
+  lName: {
+    type: String,
+    required: [true, 'Please Enter your Last Name'],
+   // unique: [true, "there's a user with that name "],
+    trim:true
   },
   email: {
     type: String,
@@ -19,14 +25,10 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin', 'manger'],
-    default: 'user'
+    enum: ['editor', 'admin'],
+    default: 'editor'
   },
-  phoneNumber: {
-    type: String,
-    unique: true,
-    required: true,
-  },
+ 
   password: {
     type: String,
     required: [true, 'Please Enter your Password'],
@@ -45,10 +47,7 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same',
     },
   },
-  profileImage: {
-    type: String,
-    default: ""
-  },
+
   isActive: {
     type: Boolean,
     default: true
