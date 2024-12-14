@@ -10,6 +10,7 @@ const cors = require('cors')
 const AppError = require(`./utils/appError`);
 const authRouter= require('./routes/authRouter')
 const userRouter=require('./routes/userRouter')
+const newRouter=require('./routes/newRouter')
 const globalErrorHandler = require(`./controllers/errorController`);
 const app = express();
 
@@ -66,7 +67,7 @@ app.use((req, res, next) => {
 
 app.use('/api/auth',authRouter);
 app.use('/api/users',userRouter);
-
+app.use('/api/edit-website/news',newRouter);
 
 
 app.all('*', (req, res, next) => {
