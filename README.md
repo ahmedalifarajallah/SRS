@@ -1,5 +1,5 @@
 
-# Authentication System for CMS Dashboard
+# Bussniess of News System
 
 ## Purpose  
 This project outlines the requirements for the authentication system of a CMS dashboard. The system enables users to log in using their email and password and ensures secure access through role-based permissions (Admin and Editor). Admin users have full control over user management and authorization, providing a robust and efficient solution for content management.
