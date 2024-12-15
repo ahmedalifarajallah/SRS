@@ -14,7 +14,7 @@ router.route('/')
 router.route('/:id')
 .get(newController.getOneNew)
 .delete(newController.deleteNew)
-.patch(newController.checkNewExists,newController.uploadNewsImages,newController.resizeNewsImages,newController.updateNew)
+.patch(newController.uploadNewsImages,newController.resizeNewsImages,newController.updateNew)
 
 
 router.use(authController.restrictTo('admin'));
