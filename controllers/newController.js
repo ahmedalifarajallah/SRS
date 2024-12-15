@@ -81,7 +81,7 @@ exports.createNew = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: true,
     message: "New is created Successfully",
-    data: doc
+    //data: doc
   })
 });
 
@@ -123,7 +123,7 @@ exports.updateNew = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: true,
     message: "new updated Successfully",
-    doc
+    //doc
 
   })
 })
