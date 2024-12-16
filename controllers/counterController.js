@@ -52,7 +52,7 @@ exports.resizeCounterImage = catchAsync(async (req, res, next) => {
         .toFile(outputPath);
 
     // Attach the file path to the request body
-    req.body.image = `/counters/imgs/${counterFilename}`; // Relative path for saving in DB
+    req.body.image = `public/counters/imgs/${counterFilename}`; // Relative path for saving in DB
 
     next();
 });
@@ -87,11 +87,15 @@ exports.getOneCounter=catchAsync(async(req,res,next)=>{
 })
 
 exports.updateCounter = catchAsync(async(req,res,next)=>{
-    const doc = await Counter.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+    if(req.file)  fs.unlink(`${req.counter.image}`, (err) => {});
+    
+    req.counter.set(req.body); // Update the fields of the document
+    const updatedCounter = await req.counter.save(); // Save the changes
+    
     res.status(200).json({
         status:true,
         message:"Counter Updated Successfully",
-        doc
+        doc:updatedCounter
     })
 })
 
@@ -100,7 +104,7 @@ exports.deleteCounter= catchAsync(async(req,res,next)=>{
 
 
     if (!doc) return next(new AppError('Data not found', 404));
-    fs.unlink(`${doc.image}`, (err) => {console.log("error of removing thumbnail",err)});
+    fs.unlink(`${doc.image}`, (err) => {console.log("error of removing image",err)});
 
   await  doc.deleteOne();
   res.status(200).json({
@@ -116,6 +120,8 @@ exports.checkCounterExists = async (req, res, next) => {
         new AppError('Data Not Found', 404)
       );
     }
+    req.counter=doc;
     next();
   };
+  
   
