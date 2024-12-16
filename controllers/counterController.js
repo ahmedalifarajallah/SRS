@@ -33,7 +33,7 @@ exports.uploadCounterImage = upload.single('image')
 
 
 exports.resizeCounterImage = catchAsync(async (req, res, next) => {
-    if (!req.file) return next(new AppError('No image file uploaded!', 400));
+    if (!req.file) return next();
 
     const timestamp = Date.now();
     const id = req.user ? req.user.id : 'guest'; // Fallback if user ID isn't available
@@ -88,7 +88,7 @@ exports.getOneCounter=catchAsync(async(req,res,next)=>{
 
 exports.updateCounter = catchAsync(async(req,res,next)=>{
     if(req.file)  fs.unlink(`${req.counter.image}`, (err) => {});
-    
+
     req.counter.set(req.body); // Update the fields of the document
     const updatedCounter = await req.counter.save(); // Save the changes
     
