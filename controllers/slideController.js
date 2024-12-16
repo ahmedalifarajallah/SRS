@@ -1,7 +1,7 @@
 const fs = require('fs');
 const multer = require('multer');
 const sharp = require('sharp');
-const Counter = require('../models/counterModel');
+const Slide = require('../models/slideModel');
 const { catchAsync } = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -28,10 +28,10 @@ const upload = multer({
 });
 
 // Middleware to upload multiple types of images
-exports.uploadCounterImage = upload.single('image')
+exports.uploadSlideImage = upload.single('image')
 
 
-exports.resizeCounterImage = catchAsync(async (req, res, next) => {
+exports.resizeSlideImage = catchAsync(async (req, res, next) => {
     if (!req.file) return next();
 
     const timestamp = Date.now();
@@ -42,64 +42,68 @@ exports.resizeCounterImage = catchAsync(async (req, res, next) => {
     const fileExt = fileMetadata.format;
 
     // Generate the file name
-    const counterFilename = `counter-${id}-${timestamp}.${fileExt}`;
+    const slideFilename = `slide-${id}-${timestamp}.${fileExt}`;
 
     // Save the resized image
-    const outputPath = `public/counters/imgs/${counterFilename}`;
+    const outputPath = `public/slides/imgs/${slideFilename}`;
     await sharp(req.file.buffer)
         .resize(2000, 1333) // Resize dimensions
         .toFile(outputPath);
 
     // Attach the file path to the request body
-    req.body.image = `public/counters/imgs/${counterFilename}`; // Relative path for saving in DB
+    req.body.image = `public/slides/imgs/${slideFilename}`; // Relative path for saving in DB
 
     next();
 });
 
 
 
-exports.addCounter = catchAsync(async (req, res, next) => {
-        const counter = await Counter.create(req.body);
-        res.status(201).json({
-            status:true,
-            message:"Counter created Successfully",
-            data:counter
-        })
+
+
+exports.addSlide = catchAsync(async (req, res, next) => {
+    await Slide.create(req.body);
+    res.status(201).json({
+        status: true,
+        message: "slide created Successfully",
+
+    })
+})
+
+exports.getSlides = catchAsync(async (req, res, next) => {
+    const {type} = req.query;
+    let filter={};
+    if(type) filter.type=type;
+    const data = await Slide.find(filter).sort('-createdAt');
+    if (!data || data.length === 0) return next(new AppError(`data n't found`, 404));
+    res.status(200).json({
+        status: true,
+        data
+    })
 });
-
-exports.getCounters=catchAsync(async(req,res,next)=>{
-    const data= await Counter.find();
-    if(!data ||data.length===0) return next(new AppError(`data n't found`,404));
+exports.getOneSlide=catchAsync(async(req,res,next)=>{
+    const doc = await Slide.findById(req.params.id);
+    if(!doc)  return next(new AppError(`data n't found`, 404));
     res.status(200).json({
         status:true,
-        data
+        data:doc
     })
 })
 
-exports.getOneCounter=catchAsync(async(req,res,next)=>{
-    const data= await Counter.findById(req.params.id);
-    if(!data||data.length===0) return next(new AppError(`data n't found`,404));
-    res.status(200).json({
-        status:true,
-        data
-    })
-})
+exports.updateSlide=catchAsync(async(req,res,next)=>{
+ if(req.file)  fs.unlink(`${req.slide.image}`, (err) => {});
 
-exports.updateCounter = catchAsync(async(req,res,next)=>{
-    if(req.file)  fs.unlink(`${req.counter.image}`, (err) => {});
-
-    req.counter.set(req.body); // Update the fields of the document
-    const updatedCounter = await req.counter.save(); // Save the changes
+    req.slide.set(req.body); // Update the fields of the document
+    const updatedSlide = await req.slide.save(); // Save the changes
     
     res.status(200).json({
         status:true,
-        message:"Counter Updated Successfully",
-        doc:updatedCounter
+        message:"Slide Updated Successfully",
+        doc:updatedSlide
     })
 })
 
-exports.deleteCounter= catchAsync(async(req,res,next)=>{
-    const doc = await Counter.findById(req.params.id);
+exports.deleteSlide=catchAsync(async(req,res,next)=>{
+    const doc = await Slide.findById(req.params.id);
 
 
     if (!doc) return next(new AppError('Data not found', 404));
@@ -108,18 +112,18 @@ exports.deleteCounter= catchAsync(async(req,res,next)=>{
   await  doc.deleteOne();
   res.status(200).json({
     status:true,
-    message:"Counter deleted Successfully"
+    message:"Slide deleted Successfully"
   })
 })
 
-exports.checkCounterExists = async (req, res, next) => {
-    const doc = await Counter.findById(req.params.id);
+exports.checkSlideExists = async (req, res, next) => {
+    const doc = await Slide.findById(req.params.id);
     if (!doc) {
       return next(
         new AppError('Data Not Found', 404)
       );
     }
-    req.counter=doc;
+    req.slide=doc;
     next();
   };
   
