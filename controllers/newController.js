@@ -113,11 +113,11 @@ exports.getOneNew = catchAsync(async (req, res, next) => {
   })
 })
 
-
+//TODO: update News with files
 exports.updateNew = catchAsync(async (req, res, next) => {
   //param and token id
   const filteredBody = filterObj(req.body, 'title', 'title_ar', 'description', 'description_ar', 'images', 'thumbnail', 'published');
-  console.log("body",filteredBody)
+  
   const doc = await New.findOneAndUpdate({ _id: req.params.id, author: req.user.id }, filteredBody, { new: true, runValidators: true })
   if (!doc) return next(new AppError(`Data Not Found`, 404))
   res.status(200).json({

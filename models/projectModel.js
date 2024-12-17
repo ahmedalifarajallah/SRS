@@ -37,7 +37,8 @@ const projectSchema = new mongoose.Schema({
     },
     images:[String],
     category:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product', // Self-reference
         required:[true,'project must have category']
     },
     state:{
@@ -60,6 +61,11 @@ projectSchema.pre('save', function (next) {
     }
     next();
 });
+//populate category => product_Id
+projectSchema.pre(/^find/,function(next){
+    this.populate('category').select('-__v');
+    next();
+})
 
 const Project = mongoose.model('Project',projectSchema);
 
