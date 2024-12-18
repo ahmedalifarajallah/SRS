@@ -41,13 +41,13 @@ const projectSchema = new mongoose.Schema({
         ref: 'Product', // Self-reference
         required:[true,'project must have category']
     },
-    state:{
+    status:{
         type:String,
         enum:["pending", "in progress", "completed"], 
         required:[true,'project must have state']
     },
     published: { type: Boolean, default: false }, 
-    projectProgress: { type: Number, min: 0, max: 100, required: true }, 
+    projectProgress: { type: Number, min: 0, max: 100, required: [true,'must has projectProgress'] }, 
     
 })
 

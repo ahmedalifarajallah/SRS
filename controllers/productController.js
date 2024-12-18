@@ -73,7 +73,7 @@ exports.AddProduct=catchAsync(async(req,res,next)=>{
     res.status(201).json({
         status:true,
         message:"product created Successfully",
-        data
+       // data
     })
 });
 
@@ -105,7 +105,7 @@ exports.updateProduct=catchAsync(async(req,res,next)=>{
     res.status(200).json({
         status:true,
         message:"product updated successfully",
-        data:updatedProduct
+      //  data:updatedProduct
     })
 
 })

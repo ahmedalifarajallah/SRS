@@ -59,7 +59,7 @@ exports.AddProject=catchAsync(async(req,res,next)=>{
     res.status(201).json({
         status:true,
         message:"project created Successfully",
-        data
+      //  data
     })
 });
 

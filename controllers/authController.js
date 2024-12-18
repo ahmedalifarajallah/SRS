@@ -34,8 +34,8 @@ const createSendToken = (user, statusCode, message, res) => {
   res.status(statusCode).json({
     status: true,
     message,
-    fname:user.fName,
-    lName:user.lName,
+   // fname:user.fName,
+  //  lName:user.lName,
     token,
   });
 };

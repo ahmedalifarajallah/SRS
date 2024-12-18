@@ -63,7 +63,7 @@ exports.addCounter = catchAsync(async (req, res, next) => {
         res.status(201).json({
             status:true,
             message:"Counter created Successfully",
-            data:counter
+           // data:counter
         })
 });
 
@@ -94,7 +94,7 @@ exports.updateCounter = catchAsync(async(req,res,next)=>{
     res.status(200).json({
         status:true,
         message:"Counter Updated Successfully",
-        doc:updatedCounter
+       // doc:updatedCounter
     })
 })
 
