@@ -14,6 +14,7 @@ const newRouter=require('./routes/newRouter')
 const counterRouter=require('./routes/counterRouter')
 const slideRouter=require('./routes/slideRouter')
 const productRouter=require('./routes/productRouter')
+const projectRouter= require('./routes/projectRouter')
 const globalErrorHandler = require(`./controllers/errorController`);
 const app = express();
 
@@ -77,6 +78,7 @@ app.use('/api/edit-website/news',newRouter);
 app.use('/api/edit-website/counter',counterRouter);
 app.use('/api/edit-website/slide',slideRouter);
 app.use('/api/edit-website/products',productRouter);
+app.use('/api/edit-website/projects',projectRouter);
 app.all('*', (req, res, next) => {
 
   next(
