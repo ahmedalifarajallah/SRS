@@ -6,15 +6,17 @@ const rateLimit = require('express-rate-limit'); // security
 const helmet = require('helmet'); // security
 const mongoSanitize = require('express-mongo-sanitize'); // security
 const xss = require('xss-clean'); // security
-const cors = require('cors')
+const cors = require('cors');
 const AppError = require(`./utils/appError`);
-const authRouter= require('./routes/authRouter')
-const userRouter=require('./routes/userRouter')
-const newRouter=require('./routes/newRouter')
-const counterRouter=require('./routes/counterRouter')
-const slideRouter=require('./routes/slideRouter')
-const productRouter=require('./routes/productRouter')
-const projectRouter= require('./routes/projectRouter')
+const authRouter= require('./routes/authRouter');
+const userRouter=require('./routes/userRouter');
+const newRouter=require('./routes/newRouter');
+const counterRouter=require('./routes/counterRouter');
+const slideRouter=require('./routes/slideRouter');
+const productRouter=require('./routes/productRouter');
+const projectRouter= require('./routes/projectRouter');
+const middleSectionRouter=require('./routes/middleSectionRouter');
+const valuesSectionRouter=require('./routes/valuesSectionRouter');
 const globalErrorHandler = require(`./controllers/errorController`);
 const app = express();
 
@@ -79,6 +81,8 @@ app.use('/api/edit-website/counter',counterRouter);
 app.use('/api/edit-website/slide',slideRouter);
 app.use('/api/edit-website/products',productRouter);
 app.use('/api/edit-website/projects',projectRouter);
+app.use('/api/edit-website/middle-section',middleSectionRouter);
+app.use('/api/edit-website/values',valuesSectionRouter);
 app.all('*', (req, res, next) => {
 
   next(

@@ -21,7 +21,17 @@ const MainCarousel = Slide.discriminator(
   new mongoose.Schema({
     description: { type: String, required: true },
     description_ar: { type: String, required: true },
-    link: { type: String,required: true },
+    link: {
+      type: String,
+      required: [true, 'The link value is required'],
+      validate: {
+        validator: function (v) {
+          // Regular expression to validate a URL
+          return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(v);
+        },
+        message: (props) => `${props.value} is not a valid URL!`,
+      },
+    },
   })
 );
 
