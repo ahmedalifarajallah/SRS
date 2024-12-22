@@ -17,6 +17,7 @@ const productRouter=require('./routes/productRouter');
 const projectRouter= require('./routes/projectRouter');
 const middleSectionRouter=require('./routes/middleSectionRouter');
 const valuesSectionRouter=require('./routes/valuesSectionRouter');
+const scopeRouter=require('./routes/scopeRouter');
 const globalErrorHandler = require(`./controllers/errorController`);
 const app = express();
 
@@ -83,6 +84,7 @@ app.use('/api/edit-website/products',productRouter);
 app.use('/api/edit-website/projects',projectRouter);
 app.use('/api/edit-website/middle-section',middleSectionRouter);
 app.use('/api/edit-website/values',valuesSectionRouter);
+app.use('/api/edit-website/scopes',scopeRouter)
 app.all('*', (req, res, next) => {
 
   next(
