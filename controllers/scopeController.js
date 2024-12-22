@@ -69,11 +69,11 @@ const multerFilter = (req, file, cb) => {
 
 
 exports.addScope = catchAsync(async (req, res, next) => {
-   const doc= await Scope.create(req.body);
+    await Scope.create(req.body);
     res.status(201).json({
         status: true,
         message: "scope created Successfully",
-        data:doc
+       // data:doc
 
     })
 })
