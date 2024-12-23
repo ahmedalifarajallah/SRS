@@ -12,7 +12,7 @@ router.route('/')
 
 router.route('/:id')
 .get(mediasController.getOneMedia)
-.patch(mediasController.checkMediaExists,mediasController.uploadMediasFiles,mediasController.processMediasFiles,mediasController.updateMedia)
+//.patch(mediasController.checkMediaExists,mediasController.uploadMediasFiles,mediasController.processMediasFiles,mediasController.updateMedia)
 .delete(mediasController.deleteMedia)
 
 

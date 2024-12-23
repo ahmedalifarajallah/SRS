@@ -107,7 +107,7 @@ exports.getOneMedia = catchAsync(async (req, res, next) => {
         data: doc
     })
 })
-
+/*
 exports.updateMedia = catchAsync(async (req, res, next) => {
     if (req.files.fullImage) fs.unlink(`${req.media.fullImage}`, (err) => { });
     if (req.files.thumbnail) fs.unlink(`${req.media.thumbnail}`, (err) => { });
@@ -121,7 +121,7 @@ exports.updateMedia = catchAsync(async (req, res, next) => {
         doc: updatedMedia
     })
 })
-
+*/
 exports.deleteMedia = catchAsync(async (req, res, next) => {
     const doc = await Media.findById(req.params.id);
     if (!doc) return next(new AppError('Data not found', 404));
