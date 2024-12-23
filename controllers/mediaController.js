@@ -37,7 +37,7 @@ exports.processMediasFiles = catchAsync(async (req, res, next) => {
     const id = req.user.id; // Assuming the user ID is available from req.user.id
 
     // Process fullImage
-    if (req.files.fullImage) {
+    if (req.files.fullImage && req.body.type==='Image') {
         const fullImageMetadata = await sharp(req.files.fullImage[0].buffer).metadata();
         const fullImageExt = fullImageMetadata.format;
 
@@ -51,7 +51,7 @@ exports.processMediasFiles = catchAsync(async (req, res, next) => {
     }
 
     // Process thumbnail
-    if (req.files.thumbnail) {
+    if (req.files.thumbnail&& req.body.type==='Image') {
         const thumbnailMetadata = await sharp(req.files.thumbnail[0].buffer).metadata();
         const thumbnailExt = thumbnailMetadata.format;
 
@@ -65,7 +65,7 @@ exports.processMediasFiles = catchAsync(async (req, res, next) => {
     }
 
     // Process video
-    if (req.files.video) {
+    if (req.files.video&& req.body.type==='Video') {
         const videoFilename = `video-${id}-${timestamp}.${req.files.video[0].originalname.split('.').pop()}`;
 
         // Save video to a public directory
@@ -79,11 +79,11 @@ exports.processMediasFiles = catchAsync(async (req, res, next) => {
 });
 
 exports.addMedia = catchAsync(async (req, res, next) => {
-    const doc = await Media.create(req.body);
+     await Media.create(req.body);
     res.status(201).json({
         status: true,
         message: "media created Successfully",
-        data: doc
+       // data: doc
 
     })
 })
