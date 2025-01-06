@@ -12,7 +12,7 @@ router.route('/')
 
 router.get('/:id',seoController.getSeos);
 
-router.route('/:page')
+router.route('/findByPage/:page')
 .get(seoController.getSeoByPage)
 .delete(seoController.deleteSeo)
 .patch(seoController.checkSeoExists,seoController.uploadSeoImage,seoController.resizeSeoImage,seoController.updateSeo)

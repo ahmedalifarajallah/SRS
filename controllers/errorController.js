@@ -23,7 +23,7 @@ const handleJWTError = () =>
   new AppError('Your Session expired Please login again!', 401);
 
 const handleJWTExpiredError = () =>
-  new AppError('Your token has expired! Please log in again.', 401);
+  new AppError('Your Session expired Please login again!', 401);
 
 const sendErrorDev = (err, req, res) => {
   // A) API

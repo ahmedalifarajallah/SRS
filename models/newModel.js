@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const slugify = require('slugify');
 const newSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -28,12 +28,7 @@ const newSchema = new mongoose.Schema({
         required: [true, "new must has a author"]
 
     },
-    /*
-    date:{
-        type:Date,
-        default:Date.now()
-    }
-    */
+    
     images: [{
         type: String,
         required: [true, 'new must has an images']
@@ -45,16 +40,36 @@ const newSchema = new mongoose.Schema({
     published: {
         type: Boolean,
         default: false
+    },    
+    slug: {
+        type: String,
+        unique: true,
     },
+    slug_ar: {
+        type: String,
+        unique: true,
+    },
+    date:{
+        type:Date,
+        default:Date.now()
+    }
     
 },{
     timestamps: true,
-    // toJSON: { virtuals: true },
-    //  toObject: { virtuals: true },
-  })
+   })
 
 
 
+// Middleware to generate slug and slug_ar before saving
+newSchema.pre('save', function (next) {
+    if (this.isModified('title')) {
+        this.slug = slugify(this.title, { lower: true });
+    }
+    if (this.isModified('title_ar')) {
+        this.slug_ar = slugify(this.title_ar, { lower: true });
+    }
+    next();
+});
 
 newSchema.pre(/^find/, function (next) {
     this.populate('author').select('-__v')

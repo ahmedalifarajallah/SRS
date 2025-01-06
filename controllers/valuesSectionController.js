@@ -97,7 +97,7 @@ exports.getOneValuesSection=catchAsync(async(req,res,next)=>{
         data:doc
     })
 })
-
+//FIXME:
 exports.updateValuesSection=catchAsync(async(req,res,next)=>{
  if(req.files.main)  fs.unlink(`${req.valuesSection.images.main}`, (err) => {});
  if(req.files.rotate)  fs.unlink(`${req.valuesSection.images.rotate}`, (err) => {});
