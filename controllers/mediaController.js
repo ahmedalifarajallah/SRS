@@ -90,7 +90,7 @@ exports.addMedia = catchAsync(async (req, res, next) => {
 
 exports.getMedias = catchAsync(async (req, res, next) => {
 
-    const data = await Media.find().sort('-createdAt');
+    const data = await Media.find();
     if (!data || data.length === 0) return next(new AppError(`data n't found`, 404));
     res.status(200).json({
         status: true,

@@ -73,7 +73,7 @@ exports.getSlides = catchAsync(async (req, res, next) => {
     const {type} = req.query;
     let filter={};
     if(type) filter.type=type;
-    const data = await Slide.find(filter).sort('-createdAt');
+    const data = await Slide.find(filter);
     if (!data || data.length === 0) return next(new AppError(`data n't found`, 404));
     res.status(200).json({
         status: true,

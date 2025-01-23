@@ -68,7 +68,7 @@ exports.addSeo = catchAsync(async (req, res, next) => {
 })
 
 exports.getSeos = catchAsync(async (req, res, next) => {
-    const data = await Seo.find().sort('-createdAt');
+    const data = await Seo.find();
     if (!data || data.length === 0) return next(new AppError(`data n't found`, 404));
     res.status(200).json({
         status: true,

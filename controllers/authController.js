@@ -218,6 +218,11 @@ exports.logOut = catchAsync(async (req, res, next) => {
 
 //MIDDLEWARE CHECK IF USER STILL LOGGED IN
 exports.protect = catchAsync(async (req, res, next) => {
+
+  if(req.method === 'GET' && !req.originalUrl.includes('/api/users') ){
+    return next();
+  }
+
   //1)Getting token and check it's there
   let token;
 

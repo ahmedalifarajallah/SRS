@@ -48,6 +48,14 @@ const projectSchema = new mongoose.Schema({
     },
     published: { type: Boolean, default: false }, 
     projectProgress: { type: Number, min: 0, max: 100, required: [true,'must has projectProgress'] }, 
+    slug: {
+        type: String,
+        unique: true,
+    },
+    slug_ar: {
+        type: String,
+        unique: true,
+    },
     
 })
 
